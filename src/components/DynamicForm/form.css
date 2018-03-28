@@ -1,0 +1,25 @@
+.dynamic-form {
+    box-shadow: 2px 6px 8px grey;
+    margin-bottom: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 10px 2px;
+    max-width: 600px;
+}
+.dynamic-form .form-group {
+    padding: .5em;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.dynamic-form .form-group label {
+}
+
+.dynamic-form .form-group input {
+}
+
+.dynamic-form .form-group button{
+    padding: .5em;
+}
