@@ -5,9 +5,9 @@ import './App.css';
 class App extends Component {
   state = {
     data: [
-      {id: 1, name:"a", age:29, qualification:"B.Com",rating:3},
-      {id: 2, name:"b", age:35, qualification:"B.Sc",rating:5},
-      {id: 3, name:"c", age:42, qualification:"B.E",rating:3},
+      {id: 1, name:"a", age:29, qualification:"B.Com",rating:3,gender:"male"},
+      {id: 2, name:"b", age:35, qualification:"B.Sc",rating:5,gender:"female"},
+      {id: 3, name:"c", age:42, qualification:"B.E",rating:3,gender:"female"},
     ]
   }
 
@@ -28,6 +28,9 @@ class App extends Component {
             {key: "name", label: "Name", props: {required: true}},
             {key: "age",label: "Age", type: "number"},
             {key: "rating",label: "Rating", type: "number", props:{min:0,max:5}},
+            {key: "male",label: "Male", type: "radio", value: "male", name:"gender"},
+            {key: "female",label: "Female", type: "radio", checked:true, value: "female", name: "gender"},
+            
             {key: "qualification",label: "Qualification"},
           ]}
           onSubmit = {(model) => {this.onSubmit(model)}}

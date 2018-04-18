@@ -16,8 +16,9 @@ export default  class DynamicForm extends React.Component {
     }
 
     onChange = (e, key) => {
+        console.log(`${key} changed ${e.target.value}`);
         this.setState({
-            [key]: this[key].value
+            [key]: e.target.value  //this[key].value
         })
     }
 
@@ -29,19 +30,28 @@ export default  class DynamicForm extends React.Component {
             let type = m.type || "text";
             let props = m.props || {};
 
+            let name= m.name;
+            let value = m.value;
+            
+            let checked= this.state[name] === key; 
+            
+            let target = type === "radio" ? name : key;
             return (
                 <div key={key} className="form-group">
                     <label className="form-label"
-                        key={"l" + m.key}
-                        htmlFor={m.key}>
+                        key={"l" + key}
+                        htmlFor={key}>
                         {m.label}
                     </label>
                     <input {...props}
                         ref={(key)=>{this[m.key]=key}}
+                        checked={checked}
                         className="form-input"
                         type={type}
-                        key={"i" + m.key}
-                        onChange={(e)=>{this.onChange(e, key)}}
+                        key={key}
+                        name={name}
+                        value={value}
+                        onChange={(e)=>{this.onChange(e, target)}}
                     />
 
                 </div>
