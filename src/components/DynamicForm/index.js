@@ -30,11 +30,30 @@ export default  class DynamicForm extends React.Component {
         if (this.props.onSubmit) this.props.onSubmit(this.state);
     }
 
-    onChange = (e, key) => {
-        console.log(`${key} changed ${e.target.value}`);
-        this.setState({
-            [key]: e.target.value  //this[key].value
-        });
+    onChange = (e, key,type="single") => {
+        console.log(`${key} changed ${e.target.value} type ${type}`);
+        if (type === "single") {
+            this.setState({
+                [key]: e.target.value  
+            });
+        } else {
+            // Array of values (e.g. checkbox): TODO: Optimization needed.
+            let found = this.state[key] ?  
+                            this.state[key].find ((d) => d === e.target.value) : false;
+            
+            if (found) {
+                let data = this.state[key].filter((d) => {
+                    return d !== found;
+                });
+                this.setState({
+                    [key]: data
+                });
+            } else {
+                this.setState({
+                    [key]: [e.target.value, ...this.state[key]]
+                });
+            }
+        }
     }
 
 
@@ -97,6 +116,32 @@ export default  class DynamicForm extends React.Component {
 
                 console.log("Select default: ", value);
                 input = <select value={value} onChange={(e)=>{this.onChange(e, m.key)}}>{input}</select>;
+             }
+
+             if (type == "checkbox") {
+                input = m.options.map((o) => {
+                    
+                    //let checked = o.value == value;
+                    let checked = false;
+                    if (value && value.length > 0) {
+                        checked = value.indexOf(o.value) > -1 ? true: false;
+                    }
+                    console.log("Checkbox: ",checked);
+                     return (
+                        <label key={"ll" +o.key }>{o.label}
+                            <input {...props}
+                                className="form-input"
+                                type={type}
+                                key={o.key}
+                                name={o.name}
+                                checked={checked}
+                                value={o.value}
+                                onChange={(e)=>{this.onChange(e, m.key,"multiple")}}
+                            />
+                        </label>
+                     );
+                });
+
              }
             
             return (

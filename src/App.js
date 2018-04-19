@@ -5,9 +5,12 @@ import './App.css';
 class App extends Component {
   state = {
     data: [
-      {id: 1, name:"a", age:29, qualification:"B.Com",rating:3,gender:"male",city:"Kerala"},
-      {id: 2, name:"b", age:35, qualification:"B.Sc",rating:5,gender:"female",city:"Mumbai"},
-      {id: 3, name:"c", age:42, qualification:"B.E",rating:3,gender:"female",city:"Bangalore"},
+      {id: 1, name:"a", age:29, qualification:"B.Com",rating:3,gender:"male",
+          city:"Kerala",skills:["reactjs","angular","vuejs"]},
+      {id: 2, name:"b", age:35, qualification:"B.Sc",rating:5,gender:"female",
+          city:"Mumbai",skills:["reactjs","angular"]},
+      {id: 3, name:"c", age:42, qualification:"B.E",rating:3,gender:"female",
+        city:"Bangalore",skills:["reactjs"]},
     ],
     current: {}
   }
@@ -40,6 +43,7 @@ class App extends Component {
             <td>{d.gender}</td>
             <td>{d.rating}</td>
             <td>{d.city}</td>
+            <td>{d.skills.join(",")}</td>
             <td><button onClick={()=>{this.onEdit(d.id)}}>edit</button></td>
         </tr>
       );
@@ -64,6 +68,12 @@ class App extends Component {
                 {key:"bangalore",label:"Bangalore",value:"Bangalore"},
                 {key:"kerala",label:"Kerala",value:"Kerala"},
             ]},
+            {key: "skills",label:"Skills", type:"checkbox", options: [
+                {key:"reactjs",label:"ReactJS",value:"reactjs"},
+                {key:"angular",label:"Angular",value:"angular"},
+                {key:"vuejs",label:"VueJS",value:"vuejs"},
+            ]},
+
           ]}
           onSubmit = {(model) => {this.onSubmit(model)}} 
         />
