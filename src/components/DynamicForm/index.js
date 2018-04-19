@@ -81,6 +81,22 @@ export default  class DynamicForm extends React.Component {
                     );
                });
             }
+
+            if (type == "select") {
+                input = m.options.map((o) => {
+                    let checked = o.value == value;
+                    console.log("select: ", o.value, value);
+                     return (
+                            <option {...props}
+                                className="form-input"
+                                key={o.key}
+                                value={o.value}
+                            >{o.value}</option>
+                     );
+                });
+
+                input = <select onChange={(e)=>{this.onChange(e, m.key)}}>{input}</select>;
+             }
             
             return (
                 <div key={'g' + key} className="form-group">

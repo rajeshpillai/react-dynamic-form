@@ -39,6 +39,7 @@ class App extends Component {
             <td>{d.qualification}</td>
             <td>{d.gender}</td>
             <td>{d.rating}</td>
+            <td>{d.city}</td>
             <td><button onClick={()=>{this.onEdit(d.id)}}>edit</button></td>
         </tr>
       );
@@ -58,6 +59,11 @@ class App extends Component {
               {key:"female",label:"Female",name: "gender",value:"female"}
             ]},
             {key: "qualification",label: "Qualification"},
+            {key: "city",label:"City", type:"select", options: [
+                {key:"mumbai",label:"Mumbai",value:"Mumbai"},
+                {key:"bangalore",label:"Bangalore",value:"Bangalore"},
+                {key:"kerala",label:"Kerala",value:"Kerala"},
+            ]},
           ]}
           onSubmit = {(model) => {this.onSubmit(model)}} 
         />
