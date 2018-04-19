@@ -5,9 +5,9 @@ import './App.css';
 class App extends Component {
   state = {
     data: [
-      {id: 1, name:"a", age:29, qualification:"B.Com",rating:3,gender:"male"},
-      {id: 2, name:"b", age:35, qualification:"B.Sc",rating:5,gender:"female"},
-      {id: 3, name:"c", age:42, qualification:"B.E",rating:3,gender:"female"},
+      {id: 1, name:"a", age:29, qualification:"B.Com",rating:3,gender:"male",city:"Kerala"},
+      {id: 2, name:"b", age:35, qualification:"B.Sc",rating:5,gender:"female",city:"Mumbai"},
+      {id: 3, name:"c", age:42, qualification:"B.E",rating:3,gender:"female",city:"Bangalore"},
     ],
     current: {}
   }

@@ -58,7 +58,7 @@ export default  class DynamicForm extends React.Component {
                     type={type}
                     key={key}
                     name={name}
-                    value={this.state[target]}
+                    value={value}
                     onChange={(e)=>{this.onChange(e, target)}}
                 />;
 
@@ -95,7 +95,8 @@ export default  class DynamicForm extends React.Component {
                      );
                 });
 
-                input = <select onChange={(e)=>{this.onChange(e, m.key)}}>{input}</select>;
+                console.log("Select default: ", value);
+                input = <select value={value} onChange={(e)=>{this.onChange(e, m.key)}}>{input}</select>;
              }
             
             return (
