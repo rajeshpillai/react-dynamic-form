@@ -48,11 +48,11 @@ export default  class DynamicForm extends React.Component {
                     type={type}
                     key={key}
                     name={name}
-                    value={value}
+                    value={this.state[target]}
                     onChange={(e)=>{this.onChange(e, target)}}
                 />;
 
-           if (type == "radio") {
+            if (type == "radio") {
                input = m.options.map((o) => {
                    let checked = o.value == value;
                    console.log("radio: ", o.value, value);
@@ -68,7 +68,7 @@ export default  class DynamicForm extends React.Component {
                         />
                     );
                });
-           }
+            }
             
             return (
                 <div key={'g' + key} className="form-group">
