@@ -3,15 +3,25 @@ import ReactDOM from 'react-dom';
 import './form.css';
 
 export default  class DynamicForm extends React.Component {
-    state = {};
-
+    state ={};
     constructor(props) {
         super(props);
     }
     static getDerivedStateFromProps(nextProps, prevState) {
         console.log("getDerivedSFP: ", nextProps);
-        return {
-            ...nextProps.defaultValues
+        if (Object.keys(nextProps.defaultValues).length) {
+            return {
+                ...nextProps.defaultValues
+            }
+        } else {
+            let initialState = nextProps.model.reduce((acc, m) => {
+                acc[m.key] = "";
+                return acc;
+            },{});
+            console.log("initialState: ", initialState);
+            return {
+                ...initialState
+            }
         }
     }
 
