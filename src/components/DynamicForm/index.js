@@ -67,15 +67,17 @@ export default  class DynamicForm extends React.Component {
                    let checked = o.value == value;
                    console.log("radio: ", o.value, value);
                     return (
-                        <input {...props}
-                            className="form-input"
-                            type={type}
-                            key={o.key}
-                            name={o.name}
-                            checked={checked}
-                            value={o.value}
-                            onChange={(e)=>{this.onChange(e, o.name)}}
-                        />
+                        <label key={"ll" +o.key }>{o.label}
+                            <input {...props}
+                                className="form-input"
+                                type={type}
+                                key={o.key}
+                                name={o.name}
+                                checked={checked}
+                                value={o.value}
+                                onChange={(e)=>{this.onChange(e, o.name)}}
+                            />
+                        </label>
                     );
                });
             }
