@@ -3,11 +3,16 @@ import ReactDOM from 'react-dom';
 import './form.css';
 
 export default  class DynamicForm extends React.Component {
-    state = {
+    state = {};
 
-    }
     constructor(props) {
         super(props);
+    }
+    static getDerivedStateFromProps(nextProps, prevState) {
+        console.log("getDerivedSFP: ", nextProps);
+        return {
+            ...nextProps.defaultValues
+        }
     }
 
     onSubmit = (e) => {
@@ -19,7 +24,7 @@ export default  class DynamicForm extends React.Component {
         console.log(`${key} changed ${e.target.value}`);
         this.setState({
             [key]: e.target.value  //this[key].value
-        })
+        });
     }
 
 
@@ -34,13 +39,11 @@ export default  class DynamicForm extends React.Component {
             let name= m.name;
             let value = m.value;
 
-
-            let target = type === "radio" ? name : key;
-            value = value ? value :
-                    defaultValues[target];
+            let target = key; // type === "radio" ? name : key;
+            //value = value ? value : defaultValues[target];
+            value = this.state[target];
 
             let input =  <input {...props}
-                    ref={(key)=>{this[m.key]=key}}
                     className="form-input"
                     type={type}
                     key={key}
@@ -51,13 +54,15 @@ export default  class DynamicForm extends React.Component {
 
            if (type == "radio") {
                input = m.options.map((o) => {
+                   let checked = o.value == value;
+                   console.log("radio: ", o.value, value);
                     return (
                         <input {...props}
-                            ref={(key)=>{this[o.key]=key}}
                             className="form-input"
                             type={type}
                             key={o.key}
                             name={o.name}
+                            checked={checked}
                             value={o.value}
                             onChange={(e)=>{this.onChange(e, o.name)}}
                         />
