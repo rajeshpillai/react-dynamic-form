@@ -30,3 +30,12 @@
 .form {
   padding-left: 20px;
 }
+
+table {
+  margin: 20px;
+  border-collapse: collapse;
+  
+}
+table td {
+  padding: 15px;
+}

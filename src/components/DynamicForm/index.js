@@ -22,37 +22,57 @@ export default  class DynamicForm extends React.Component {
         })
     }
 
+
     renderForm = () => {
         let model = this.props.model;
-
+        let defaultValues = this.props.defaultValues;
+        
         let formUI = model.map((m) => {
             let key = m.key;
             let type = m.type || "text";
             let props = m.props || {};
-
             let name= m.name;
             let value = m.value;
-            
-            let checked= this.state[name] === key; 
-            
+
+
             let target = type === "radio" ? name : key;
+            value = value ? value :
+                    defaultValues[target];
+
+            let input =  <input {...props}
+                    ref={(key)=>{this[m.key]=key}}
+                    className="form-input"
+                    type={type}
+                    key={key}
+                    name={name}
+                    value={value}
+                    onChange={(e)=>{this.onChange(e, target)}}
+                />;
+
+           if (type == "radio") {
+               input = m.options.map((o) => {
+                    return (
+                        <input {...props}
+                            ref={(key)=>{this[o.key]=key}}
+                            className="form-input"
+                            type={type}
+                            key={o.key}
+                            name={o.name}
+                            value={o.value}
+                            onChange={(e)=>{this.onChange(e, o.name)}}
+                        />
+                    );
+               });
+           }
+            
             return (
-                <div key={key} className="form-group">
+                <div key={'g' + key} className="form-group">
                     <label className="form-label"
                         key={"l" + key}
                         htmlFor={key}>
                         {m.label}
                     </label>
-                    <input {...props}
-                        ref={(key)=>{this[m.key]=key}}
-                        checked={checked}
-                        className="form-input"
-                        type={type}
-                        key={key}
-                        name={name}
-                        value={value}
-                        onChange={(e)=>{this.onChange(e, target)}}
-                    />
+                   {input}
 
                 </div>
             );
