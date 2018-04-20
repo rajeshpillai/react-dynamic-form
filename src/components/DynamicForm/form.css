@@ -16,9 +16,16 @@
 
 .dynamic-form .form-label {
     text-align: left;
+    color: #2E86C1;
 }
 .dynamic-form .form-input{
     margin-top: 5px;
+    line-height: 1.5em;
+}
+
+.dynamic-form select{
+    margin-top: 5px;
+    line-height: 1.5em;
 }
 
 .dynamic-form .form-group button{
@@ -47,4 +54,24 @@
 
 .form-group-checkbox input {
 
+}
+
+.form-title {
+    text-align: left;
+}
+
+.form-actions {
+    display: flex;
+}
+.form-actions button {
+    width: 80px;
+
+    line-height: 1.5em;
+    background-color: #3498DB;
+    color: white;
+    border-radius: 4px;
+    border:0;
+    margin-top: 15px;
+    margin-left: 5px;
+    margin-bottom:5px;
 }
