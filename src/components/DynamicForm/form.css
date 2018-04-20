@@ -10,16 +10,41 @@
     padding: .5em;
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
 }
 
-.dynamic-form .form-group label {
+.dynamic-form .form-label {
+    text-align: left;
 }
-
-.dynamic-form .form-group input {
+.dynamic-form .form-input{
+    margin-top: 5px;
 }
 
 .dynamic-form .form-group button{
     padding: .5em;
+}
+
+.dynamic-form .form-group-radio {
+    display: flex;
+    flex-direction: row;
+}
+
+.form-group-radio label {
+}
+
+.form-group-radio input {
+
+}
+
+.dynamic-form .form-group-checkbox {
+    display: flex;
+    flex-direction: row;
+}
+
+.form-group-checkbox label {
+}
+
+.form-group-checkbox input {
+
 }

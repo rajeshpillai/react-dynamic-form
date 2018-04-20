@@ -84,21 +84,22 @@ export default  class DynamicForm extends React.Component {
             if (type == "radio") {
                input = m.options.map((o) => {
                    let checked = o.value == value;
-                   console.log("radio: ", o.value, value);
                     return (
-                        <label key={"ll" +o.key }>{o.label}
+                        <React.Fragment>
                             <input {...props}
-                                className="form-input"
-                                type={type}
-                                key={o.key}
-                                name={o.name}
-                                checked={checked}
-                                value={o.value}
-                                onChange={(e)=>{this.onChange(e, o.name)}}
+                                    className="form-input"
+                                    type={type}
+                                    key={o.key}
+                                    name={o.name}
+                                    checked={checked}
+                                    value={o.value}
+                                    onChange={(e)=>{this.onChange(e, o.name)}}
                             />
-                        </label>
+                            <label key={"ll" +o.key }>{o.label}</label>
+                        </React.Fragment>
                     );
                });
+               input = <div class="form-group-radio">{input}</div>;
             }
 
             if (type == "select") {
@@ -128,7 +129,7 @@ export default  class DynamicForm extends React.Component {
                     }
                     console.log("Checkbox: ",checked);
                      return (
-                        <label key={"ll" +o.key }>{o.label}
+                        <React.Fragment>
                             <input {...props}
                                 className="form-input"
                                 type={type}
@@ -138,9 +139,12 @@ export default  class DynamicForm extends React.Component {
                                 value={o.value}
                                 onChange={(e)=>{this.onChange(e, m.key,"multiple")}}
                             />
-                        </label>
+                            <label key={"ll" +o.key }>{o.label}</label>
+                        </React.Fragment>
                      );
                 });
+
+                input = <div class="form-group-checkbox">{input}</div>;
 
              }
             
@@ -151,8 +155,7 @@ export default  class DynamicForm extends React.Component {
                         htmlFor={key}>
                         {m.label}
                     </label>
-                   {input}
-
+                    {input}
                 </div>
             );
         });
