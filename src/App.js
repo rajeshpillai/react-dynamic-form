@@ -16,11 +16,19 @@ class App extends Component {
   }
 
   onSubmit = (model) => {
-    model.id = +new Date();
-    alert(JSON.stringify(model));
+    let data = [];
+    if (model.id) {
+      data = this.state.data.filter((d) => {
+        return d.id != model.id
+      });
+    } else {
+      model.id = +new Date();
+      data = this.state.data.slice();
+    }
+    
     this.setState({
-      data: [model, ...this.state.data]
-    })
+      data: [model, ...data]
+    });
   }
 
   onEdit = (id) => {
@@ -63,7 +71,7 @@ class App extends Component {
               {key:"female",label:"Female",name: "gender",value:"female"}
             ]},
             {key: "qualification",label: "Qualification"},
-            {key: "city",label:"City", type:"select", options: [
+            {key: "city",label:"City", type:"select", value: "Kerala", options: [
                 {key:"mumbai",label:"Mumbai",value:"Mumbai"},
                 {key:"bangalore",label:"Bangalore",value:"Bangalore"},
                 {key:"kerala",label:"Kerala",value:"Kerala"},

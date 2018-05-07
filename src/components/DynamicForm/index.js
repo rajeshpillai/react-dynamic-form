@@ -19,7 +19,7 @@ export default  class DynamicForm extends React.Component {
             // or (vice versa)
 
             let initialState = nextProps.model.reduce((acc, m) => {
-                acc[m.key] = "";
+                acc[m.key] = m.value ? m.value : "";
                 return acc;
             },{});
             console.log("initialState: ", initialState);
