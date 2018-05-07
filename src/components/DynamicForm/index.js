@@ -8,12 +8,16 @@ export default  class DynamicForm extends React.Component {
         super(props);
     }
     static getDerivedStateFromProps(nextProps, prevState) {
-        console.log("getDerivedSFP: ", nextProps);
-        if (Object.keys(nextProps.defaultValues).length) {
+        if (nextProps.defaultValues && Object.keys(nextProps.defaultValues).length) {
             return {
                 ...nextProps.defaultValues
             }
         } else {
+            // Assign default values of "" to our controlled input
+            // If we don't do this, React will throw the error
+            // that Input elements should not switch from uncontrolled to controlled 
+            // or (vice versa)
+
             let initialState = nextProps.model.reduce((acc, m) => {
                 acc[m.key] = "";
                 return acc;
@@ -68,8 +72,7 @@ export default  class DynamicForm extends React.Component {
             let name= m.name;
             let value = m.value;
 
-            let target = key; // type === "radio" ? name : key;
-            //value = value ? value : defaultValues[target];
+            let target = key;  
             value = this.state[target];
 
             let input =  <input {...props}
@@ -85,7 +88,7 @@ export default  class DynamicForm extends React.Component {
                input = m.options.map((o) => {
                    let checked = o.value == value;
                     return (
-                        <React.Fragment>
+                        <React.Fragment key={'fr' + o.key}>
                             <input {...props}
                                     className="form-input"
                                     type={type}
@@ -99,7 +102,7 @@ export default  class DynamicForm extends React.Component {
                         </React.Fragment>
                     );
                });
-               input = <div class="form-group-radio">{input}</div>;
+               input = <div className ="form-group-radio">{input}</div>;
             }
 
             if (type == "select") {
@@ -129,7 +132,7 @@ export default  class DynamicForm extends React.Component {
                     }
                     console.log("Checkbox: ",checked);
                      return (
-                        <React.Fragment>
+                        <React.Fragment key={"cfr" + o.key}>
                             <input {...props}
                                 className="form-input"
                                 type={type}
@@ -144,7 +147,7 @@ export default  class DynamicForm extends React.Component {
                      );
                 });
 
-                input = <div class="form-group-checkbox">{input}</div>;
+                input = <div className ="form-group-checkbox">{input}</div>;
 
              }
             
