@@ -8,31 +8,6 @@ export default class DynamicForm extends React.Component {
     super(props);
   }
 
-  static xgetDerivedStateFromPropsxxx(nextProps, prevState) {
-    console.log("gds", prevState);
-    if (
-      nextProps.defaultValues &&
-      Object.keys(nextProps.defaultValues).length
-    ) {
-      return {
-        ...nextProps.defaultValues
-      };
-    } else {
-      // Assign default values of "" to our controlled input
-      // If we don't do this, React will throw the error
-      // that Input elements should not switch from uncontrolled to controlled
-      // or (vice versa)
-      console.log("Assigning empty defaults");
-      let initialState = nextProps.model.reduce((acc, m) => {
-        acc[m.key] = m.value ? m.value : "";
-        return acc;
-      }, {});
-      return {
-        ...initialState
-      };
-    }
-  }
-
   static getDerivedStateFromProps(nextProps, prevState) {
     console.log("gds:p:s", nextProps.defaultValues, prevState);
 
