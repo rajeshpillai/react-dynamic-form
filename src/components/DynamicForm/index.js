@@ -2,10 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./form.css";
 
-function jsonEqual(a, b) {
-  return JSON.stringify(a) === JSON.stringify(b);
-}
-
 export default class DynamicForm extends React.Component {
   state = {};
   constructor(props) {
@@ -40,7 +36,6 @@ export default class DynamicForm extends React.Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     console.log("gds:p:s", nextProps.defaultValues, prevState);
 
-    let isSame = jsonEqual(nextProps.defaultValues, prevState);
     let derivedState = {};
 
     if (
