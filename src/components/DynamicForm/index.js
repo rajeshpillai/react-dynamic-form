@@ -2,13 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./form.css";
 
+function jsonEqual(a, b) {
+  return JSON.stringify(a) === JSON.stringify(b);
+}
+
 export default class DynamicForm extends React.Component {
   state = {};
   constructor(props) {
     super(props);
   }
 
-  static getDerivedStateFromPropsxx(nextProps, prevState) {
+  static xgetDerivedStateFromPropsxxx(nextProps, prevState) {
     console.log("gds", prevState);
     if (
       nextProps.defaultValues &&
@@ -22,16 +26,37 @@ export default class DynamicForm extends React.Component {
       // If we don't do this, React will throw the error
       // that Input elements should not switch from uncontrolled to controlled
       // or (vice versa)
-
+      console.log("Assigning empty defaults");
       let initialState = nextProps.model.reduce((acc, m) => {
         acc[m.key] = m.value ? m.value : "";
         return acc;
       }, {});
-      //console.log("initialState: ", initialState);
       return {
         ...initialState
       };
     }
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    console.log("gds:p:s", nextProps.defaultValues, prevState);
+
+    let isSame = jsonEqual(nextProps.defaultValues, prevState);
+    let derivedState = {};
+
+    if (
+      nextProps.defaultValues &&
+      nextProps.defaultValues.id !== prevState.id
+    ) {
+      //   Object.keys(prevState).forEach(k => {
+      //     derivedState[k] = "";
+      //   });
+      return {
+        ...nextProps.defaultValues
+      };
+    }
+
+    console.log("no state change");
+    return null;
   }
 
   onSubmit = e => {
@@ -77,7 +102,6 @@ export default class DynamicForm extends React.Component {
   renderForm = () => {
     let model = this.props.model;
     let defaultValues = this.props.defaultValues;
-    console.log("defaultValues", defaultValues);
 
     let formUI = model.map(m => {
       let key = m.key;
@@ -87,7 +111,7 @@ export default class DynamicForm extends React.Component {
       let value = m.value;
 
       let target = key;
-      value = this.state[target];
+      value = this.state[target] || "";
 
       let input = (
         <input
@@ -97,7 +121,6 @@ export default class DynamicForm extends React.Component {
           key={key}
           name={name}
           value={value}
-          defaultValue={defaultValues[target] || ""}
           onChange={e => {
             this.onChange(e, target);
           }}

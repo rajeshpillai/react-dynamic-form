@@ -51,7 +51,8 @@ class App extends Component {
     }
 
     this.setState({
-      data: [model, ...data]
+      data: [model, ...data],
+      current: {} // todo
     });
   };
 
@@ -59,9 +60,15 @@ class App extends Component {
     let record = this.state.data.find(d => {
       return d.id == id;
     });
-    alert(JSON.stringify(record));
+    //alert(JSON.stringify(record));
     this.setState({
       current: record
+    });
+  };
+
+  onNewClick = e => {
+    this.setState({
+      current: {}
     });
   };
 
@@ -91,7 +98,13 @@ class App extends Component {
 
     return (
       <div className="App">
+        <div className="form-actions">
+          <button onClick={this.onNewClick} type="submit">
+            NEW
+          </button>
+        </div>
         <DynamicForm
+          key={this.state.current.id}
           className="form"
           title="Registration"
           defaultValues={this.state.current}
