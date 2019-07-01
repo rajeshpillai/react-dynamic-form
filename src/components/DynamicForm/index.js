@@ -29,8 +29,43 @@ export default class DynamicForm extends React.Component {
     return null;
   }
 
+  // Validate form fields (This is configured in DynamicForm as props)
+  validate = () => {
+    let errors = {};
+    const validators = this.props.validators;
+    console.log(validators);
+    validators.forEach((v) => {
+      console.log(v);
+      let fieldValue = this.state[v.key];
+      console.log(`validating ${v.key}`);
+      v.validations.forEach((vd) => {
+        let r = vd.validator(fieldValue);
+        if (!r) {
+          if (errors[v.key] == undefined) {
+            errors[v.key] = [];
+          }
+          //errors.push(`${v.key} ${vd.message}`)
+          // errors.push({
+          //   [v.key]:  vd.message
+          // });
+          errors[v.key].push(vd.message);
+        }
+      }); 
+    })
+
+    console.log("ERRORS: ", errors);
+
+    return errors;
+  }
+
   onSubmit = e => {
     e.preventDefault();
+    let errors = this.validate();
+    if (Object.entries(errors).length !== 0) {
+      alert(JSON.stringify(errors));
+      return false;
+    }
+    
     if (this.props.onSubmit) this.props.onSubmit(this.state);
   };
 

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import DynamicForm from "./components/DynamicForm";
+import Validator from './validators';
+
 import "./App.css";
 
 class App extends Component {
@@ -108,6 +110,28 @@ class App extends Component {
           className="form"
           title="Registration"
           defaultValues={this.state.current}
+          validators={[
+            {
+              key: "name", validations: [
+                {
+                  "validator": Validator.checkName,
+                  "message": "Name should start with alphabets"
+                },
+                {
+                  "validator": Validator.specialName,
+                  "message": "Name should contain the word superman"
+                },
+              ]
+            },
+            {
+              key: "rating", validations: [
+                {
+                  "validator": Validator.validateRating,
+                  "message": "Rating should be between 0 and 5"
+                },
+              ]
+            }
+          ]}
           model={[
             { key: "name", label: "Name", props: { required: true } },
             { key: "age", label: "Age", type: "number" },
